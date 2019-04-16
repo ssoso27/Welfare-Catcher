@@ -1,22 +1,18 @@
 {
   "name": "wc-back",
-  "version": "0.0.1",
-  "description": "welfare-catcher project's backend",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "test"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ssoso27/Welfare-Catcher.git"
-  },
-  "keywords": [
-    "npm"
-  ],
-  "author": "Team UOAY",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ssoso27/Welfare-Catcher/issues"
-  },
-  "homepage": "https://github.com/ssoso27/Welfare-Catcher#readme"
+  "dependencies": {
+    "config": "^3.1.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "mysql": "^2.16.0"
+  }
 }
