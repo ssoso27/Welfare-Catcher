@@ -18,7 +18,23 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/join', function(req, res, next) {
-  res.send('test');
+  var body = req.body;
+  var object = {
+    nickname : body.nickname,
+    profile_img : body.profile_img,
+    email : body.email,
+    disability_type : body.disability_type,
+    disability_grade : body.disability_grade
+  }
+
+  return new Promise((resolve) => {
+    accountRepo.create(object).then(result => {
+      res.status(204).send();
+    })
+    .catch(error => {
+      res.status(400).send();
+    });
+  });
 });
 
 module.exports = router;
