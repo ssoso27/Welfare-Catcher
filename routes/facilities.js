@@ -7,7 +7,11 @@ const facilityRepo = new FacilityRepository(db);
 
 router.get('/', function(req, res, next) {
   return new Promise((resolve) => {
-    facilityRepo.findAll().then(result => {
+    const keyword = req.query.keyword
+    const size = req.query.size
+    const page = req.query.page
+
+    facilityRepo.findAll(keyword, size, page).then(result => {
       res.send(result);
     })
     .catch(error => {
