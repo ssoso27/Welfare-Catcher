@@ -23,6 +23,7 @@ router.post('/join', function(req, res, next) {
     nickname : body.nickname,
     profile_img : body.profile_img,
     email : body.email,
+    age_group : body.age_group,
     disability_type : body.disability_type,
     disability_grade : body.disability_grade
   }
