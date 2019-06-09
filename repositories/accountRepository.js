@@ -22,13 +22,14 @@ module.exports = class AccountRepository {
     create(values) {
         var sql = 
         `INSERT INTO accounts
-            (nickname, profile_img, email, password, age_group, disability_type, disability_grade, salt, createdAt, updatedAt)
+            (nickname, profile_img, email, kakao_id, password, age_group, disability_type, disability_grade, salt, createdAt, updatedAt)
         VALUES(
-            ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW()
         );`
         var params = [ values.nickname
             , values.profile_img
             , values.email
+            , values.kakao_id
             , values.password
             , values.age_group
             , values.disability_type

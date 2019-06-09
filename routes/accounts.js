@@ -34,6 +34,7 @@ router.post('/join', function(req, res, next) {
     nickname : body.nickname,
     profile_img : body.profile_img,
     email : body.email,
+    kakao_id : body.kakao_id,
     password : hashPassword,
     age_group : agegroups[body.age_group],
     disability_type : types[body.disability_type],
