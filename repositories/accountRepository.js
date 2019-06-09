@@ -46,4 +46,20 @@ module.exports = class AccountRepository {
                 });
         })
     }
+
+    findByEmail(email) {
+        var sql = "SELECT * FROM accounts WHERE email=?;"
+        var params = [email]
+
+        return new Promise((resolve, reject) => {
+            this.db.query(sql, params)
+                .then((result) => {
+                    resolve(result)
+                })
+                .catch((error) => {
+                    console.log(error)
+                    reject(error)
+                })
+        });
+    }
 }
