@@ -37,4 +37,17 @@ router.post('/join', function(req, res, next) {
   });
 });
 
+router.get('/duplicate-email', function(req, res, next) {
+  var email = req.query.email
+
+  return new Promise((resolve) => {
+      accountRepo.findByEmail(email).then(result => {
+        res.send(result.length != 0)
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  })
+})
+
 module.exports = router;
