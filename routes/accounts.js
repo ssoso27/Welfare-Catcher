@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var crypto = require('crypto')
 
 const db = require('./../common/database.js')
 const AccountRepository = require('./../repositories/accountRepository.js');
@@ -24,17 +25,20 @@ router.get('/', function(req, res, next) {
 router.post('/join', function(req, res, next) {
   
   var body = req.body;
-  var group = body.age_group
-  var type = body.disability_type
-  var grade = body.disability_grade
+
+  let inputPassword = body.password;
+  let salt = Math.round((new Date().valueOf() * Math.random())) + "";
+  let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
 
   var object = {
     nickname : body.nickname,
     profile_img : body.profile_img,
     email : body.email,
-    age_group : agegroups[group],
-    disability_type : types[type],
-    disability_grade : grades[grade]
+    password : hashPassword,
+    age_group : agegroups[body.age_group],
+    disability_type : types[body.disability_type],
+    disability_grade : grades[body.disability_grade],
+    salt: salt
   }
 
   return new Promise((resolve) => {
