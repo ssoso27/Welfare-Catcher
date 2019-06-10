@@ -60,7 +60,12 @@ module.exports = class AccountService {
                 var hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
 
                 if (savedPassword == hashPassword) {
-                    resolve()
+                    var session = {
+                        is_logined : true,
+                        nickname: account[0].nickname,
+                        email: account[0].email
+                    }
+                    resolve(session)
                 } else {
                     reject()
                 }

@@ -70,7 +70,8 @@ router.post('/login', function(req, res, next) {
   }
 
   return new Promise((reslove) => {
-    service.login(params).then(result => {
+    service.login(params).then(info => {
+      req.session.info = info
       res.status(204).send();
     })
     .catch(error => {
