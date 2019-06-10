@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var crypto = require('crypto')
 
 const db = require('./../common/database.js')
 const AccountService = require('./../services/accountService.js');
 const AccountRepository = require('./../repositories/accountRepository.js');
 
 const accountRepo = new AccountRepository(db);
-const accountService = new AccountService(accountRepo);
+const service = new AccountService(accountRepo);
 
 const agegroups = require('./../enum/agegroup.json')
 const grades = require('./../enum/disability_grade.json')
@@ -16,7 +15,7 @@ const types = require('./../enum/disability_type.json')
 /* GET accounts listing. */
 router.get('/', function(req, res, next) {
   return new Promise((resolve) => {
-    accountService.list().then(result => {
+    service.list().then(result => {
       res.send(result);
     })
     .catch(error => {
@@ -40,7 +39,7 @@ router.post('/join', function(req, res, next) {
   }
 
   return new Promise((resolve) => {
-    accountService.join(object).then(result => {
+    service.join(object).then(result => {
       res.status(204).send();
     })
     .catch(error => {
@@ -53,7 +52,7 @@ router.get('/duplicate-email', function(req, res, next) {
   var email = req.query.email
 
   return new Promise((resolve) => {
-      accountService.duplicateEmail(email).then(result => {
+      service.duplicateEmail(email).then(result => {
         res.send(result)
       })
       .catch(error => {
@@ -71,7 +70,7 @@ router.post('/login', function(req, res, next) {
   }
 
   return new Promise((reslove) => {
-    accountService.login(params).then(result => {
+    service.login(params).then(result => {
       res.status(204).send();
     })
     .catch(error => {
