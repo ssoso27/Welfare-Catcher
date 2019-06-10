@@ -20,6 +20,17 @@ module.exports = class AccountService {
             })
           })
     }
+
+    duplicateEmail(email) {
+        return new Promise((resolve, reject) => {
+            this.repository.findByEmail(email).then(result => {
+                resolve(result.length > 0)
+              })
+              .catch(error => {
+                reject(error);
+              })
+        }) 
+    }
     
     login(params) {
         return new Promise((resolve, reject) => {

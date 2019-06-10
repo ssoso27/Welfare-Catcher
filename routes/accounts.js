@@ -59,8 +59,8 @@ router.get('/duplicate-email', function(req, res, next) {
   var email = req.query.email
 
   return new Promise((resolve) => {
-      accountRepo.findByEmail(email).then(result => {
-        res.send(result.length != 0)
+      accountService.duplicateEmail(email).then(result => {
+        res.send(result)
       })
       .catch(error => {
         console.log(error);
