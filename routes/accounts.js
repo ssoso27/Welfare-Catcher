@@ -3,8 +3,11 @@ var router = express.Router();
 var crypto = require('crypto')
 
 const db = require('./../common/database.js')
+const AccountService = require('./../services/accountService.js');
 const AccountRepository = require('./../repositories/accountRepository.js');
+
 const accountRepo = new AccountRepository(db);
+const accountService = new AccountService(accountRepo);
 
 const agegroups = require('./../enum/agegroup.json')
 const grades = require('./../enum/disability_grade.json')
@@ -62,6 +65,24 @@ router.get('/duplicate-email', function(req, res, next) {
       .catch(error => {
         console.log(error);
       })
+  })
+})
+
+router.post('/login', function(req, res, next) {
+
+  var body = req.body
+  var params = {
+    email : body.email,
+    password : body.password
+  }
+
+  return new Promise((reslove) => {
+    accountService.login(params).then(result => {
+      res.status(204).send();
+    })
+    .catch(error => {
+      res.status(400).send('로그인을 할 수 없습니다.');
+    })
   })
 })
 
