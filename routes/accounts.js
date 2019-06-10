@@ -16,7 +16,7 @@ const types = require('./../enum/disability_type.json')
 /* GET accounts listing. */
 router.get('/', function(req, res, next) {
   return new Promise((resolve) => {
-    accountRepo.findAll().then(result => {
+    accountService.list().then(result => {
       res.send(result);
     })
     .catch(error => {
