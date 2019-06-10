@@ -28,29 +28,23 @@ router.get('/', function(req, res, next) {
 router.post('/join', function(req, res, next) {
   
   var body = req.body;
-
-  let inputPassword = body.password;
-  let salt = Math.round((new Date().valueOf() * Math.random())) + "";
-  let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
-
   var object = {
     nickname : body.nickname,
     profile_img : body.profile_img,
     email : body.email,
     kakao_id : body.kakao_id,
-    password : hashPassword,
+    password : body.password,
     age_group : agegroups[body.age_group],
     disability_type : types[body.disability_type],
     disability_grade : grades[body.disability_grade],
-    salt: salt
   }
 
   return new Promise((resolve) => {
-    accountRepo.create(object).then(result => {
+    accountService.join(object).then(result => {
       res.status(204).send();
     })
     .catch(error => {
-      res.status(400).send();
+      res.status(400).send('회원가입 할 수 없습니다.');
     });
   });
 });

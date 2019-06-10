@@ -21,6 +21,24 @@ module.exports = class AccountService {
           })
     }
 
+    join(params) {
+        let inputPassword = params.password;
+        let salt = Math.round((new Date().valueOf() * Math.random())) + "";
+        let hashPassword = crypto.createHash("sha512").update(inputPassword + salt).digest("hex");
+
+        params.password = hashPassword
+        params.salt = salt
+
+        return new Promise((resolve, reject) => {
+            this.repository.create(params).then(result => {
+              resolve()
+            })
+            .catch(error => {
+              reject(error)
+            });
+          });
+    }
+
     duplicateEmail(email) {
         return new Promise((resolve, reject) => {
             this.repository.findByEmail(email).then(result => {
