@@ -22,4 +22,19 @@ router.get('/search', function(req, res, next) {
   })
 });
 
+router.get('/', function(req, res, next) {
+  return new Promise((resolve) => {
+    const keyword = req.query.keyword
+    const size = req.query.size
+    const page = req.query.page
+
+    serviceRepo.findAll(keyword, size, page).then(result => {
+      res.send(result);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  })
+});
+
 module.exports = router;
