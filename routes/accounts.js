@@ -72,7 +72,18 @@ router.post('/login', function(req, res, next) {
   return new Promise((reslove) => {
     service.login(params).then(info => {
       req.session.info = info
-      res.status(204).send();
+
+      var account = {
+        nickname: info.account.nickname,
+        profile_img: info.account.profile_img,
+        email: info.account.email,
+        kakao_id: info.account.kakao_id,
+        age_group: info.account.age_group,
+        disability_type: info.account.disability_type,
+        disability_grade: info.account.disability_grade
+      }
+
+      res.status(200).send(account);
     })
     .catch(error => {
       res.status(400).send('로그인을 할 수 없습니다.');
