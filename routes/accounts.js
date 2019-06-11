@@ -74,6 +74,7 @@ router.post('/login', function(req, res, next) {
       req.session.info = info
 
       var account = {
+        id : info.account.id,
         nickname: info.account.nickname,
         profile_img: info.account.profile_img,
         email: info.account.email,
