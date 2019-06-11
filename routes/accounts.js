@@ -81,9 +81,21 @@ router.post('/login', function(req, res, next) {
 })
 
 router.get('/logout', function(req, res, next) {
-  console.log(req.session)
   req.session.destroy(function(err) {});
   res.status(204).send();
+})
+
+router.get('/:email', function(req, res, next) {
+  return new Promise((resolve) => {
+    var email = req.params.email
+    console.log(email+"!!!!!!!!!")
+    service.get(email).then(result => {
+      res.send(result);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  })
 })
 
 module.exports = router;

@@ -11,6 +11,7 @@ module.exports = class AccountService {
             this.repository.findAll().then(result => {
                 result.forEach((account, index, array) => {
                     account.password = null
+                    account.salt = null
                     array[index] = account
                 });
                 resolve(result);
@@ -74,5 +75,21 @@ module.exports = class AccountService {
                 reject(error)
             })
         });
+    }
+
+    get(email) {
+        return new Promise((resolve, reject) => {
+            this.repository.findByEmail(email).then(result => {
+                result.forEach((account, index, array) => {
+                    account.password = null
+                    account.salt = null
+                    array[index] = account
+                });
+                resolve(result);
+            })
+            .catch(error => {
+              reject(error);
+            })
+          })
     }
 }
