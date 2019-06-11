@@ -78,9 +78,9 @@ router.post('/login', function(req, res, next) {
         profile_img: info.account.profile_img,
         email: info.account.email,
         kakao_id: info.account.kakao_id,
-        age_group: info.account.age_group,
-        disability_type: info.account.disability_type,
-        disability_grade: info.account.disability_grade
+        age_group: agegroups[info.account.age_group],
+        disability_type: types[info.account.disability_type],
+        disability_grade: grades[info.account.disability_grade]
       }
 
       res.status(200).send(account);
@@ -99,7 +99,6 @@ router.get('/logout', function(req, res, next) {
 router.get('/:email', function(req, res, next) {
   return new Promise((resolve) => {
     var email = req.params.email
-    console.log(email+"!!!!!!!!!")
     service.get(email).then(result => {
       res.send(result);
     })
