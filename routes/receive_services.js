@@ -4,6 +4,8 @@ var router = express.Router();
 const db = require('./../common/database.js')
 const ReceiveServiceRepo = require('./../repositories/receiveServiceRepository.js');
 const repository = new ReceiveServiceRepo(db);
+const FacilityRepository = require('./../repositories/facilityRepository.js');
+const facilityRepo = new FacilityRepository(db);
 
 router.post('/toggle', function(req, res, next) {
     var body = req.body
@@ -33,5 +35,20 @@ router.post('/toggle', function(req, res, next) {
         })
       })
 })
+
+router.get('/account/:id', function(req, res, next) {
+  return new Promise((resolve) => {
+    const accountId = req.params.id
+    const size = req.query.size
+    const page = req.query.page
+
+    facilityRepo.findReceivedList(accountId, size, page).then(result => {
+      res.send(result);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  })
+});
 
 module.exports = router;
